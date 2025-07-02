@@ -1,0 +1,948 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>요리사 포트폴리오</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        beige: {
+                            light: '#F5F2EA',
+                            DEFAULT: '#E8E1D5',
+                            dark: '#D8CFC0',
+                        },
+                        brown: {
+                            light: '#8A7968',
+                            DEFAULT: '#6D5D4B',
+                            dark: '#5A4D3E',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Noto Sans KR', 'sans-serif'],
+                        serif: ['Noto Serif KR', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Noto+Serif+KR:wght@400;600;700&display=swap');
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #F5F2EA;
+        }
+        
+        .section-title {
+            font-family: 'Noto Serif KR', serif;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background-color: #6D5D4B;
+        }
+        
+        .gallery-item {
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .gallery-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .gallery-item img {
+            transition: all 0.5s ease;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+        
+        .timeline-item {
+            position: relative;
+            padding-left: 30px;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 8px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: #6D5D4B;
+        }
+        
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            left: 5px;
+            top: 24px;
+            width: 2px;
+            height: calc(100% - 12px);
+            background-color: #D8CFC0;
+        }
+        
+        .timeline-item:last-child::after {
+            display: none;
+        }
+        
+        .nav-link {
+            position: relative;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: #6D5D4B;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .active::after {
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <!-- 헤더 및 네비게이션 -->
+    <header class="fixed w-full bg-beige-light bg-opacity-95 shadow-sm z-50">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="text-2xl font-serif font-bold text-brown">
+                    <a href="#home" class="flex items-center">
+                        <i class="fas fa-utensils mr-2"></i>
+                        <span>Chef Portfolio</span>
+                    </a>
+                </div>
+                <nav class="hidden md:flex space-x-10">
+                    <a href="#home" class="nav-link active text-brown hover:text-brown-dark transition">홈</a>
+                    <a href="#about" class="nav-link text-brown hover:text-brown-dark transition">소개</a>
+                    <a href="#experience" class="nav-link text-brown hover:text-brown-dark transition">경력</a>
+                    <a href="#gallery" class="nav-link text-brown hover:text-brown-dark transition">갤러리</a>
+                    <a href="#contact" class="nav-link text-brown hover:text-brown-dark transition">연락처</a>
+                </nav>
+                <div class="md:hidden">
+                    <button id="menu-toggle" class="text-brown focus:outline-none">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- 모바일 메뉴 -->
+            <div id="mobile-menu" class="md:hidden hidden">
+                <div class="flex flex-col space-y-4 mt-4 pb-4">
+                    <a href="#home" class="text-brown hover:text-brown-dark transition">홈</a>
+                    <a href="#about" class="text-brown hover:text-brown-dark transition">소개</a>
+                    <a href="#experience" class="text-brown hover:text-brown-dark transition">경력</a>
+                    <a href="#gallery" class="text-brown hover:text-brown-dark transition">갤러리</a>
+                    <a href="#contact" class="text-brown hover:text-brown-dark transition">연락처</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- 메인 섹션 -->
+    <main>
+        <!-- 홈 섹션 -->
+        <section id="home" class="min-h-screen flex items-center justify-center bg-beige-light pt-16">
+            <div class="container mx-auto px-6 py-20">
+                <div class="flex flex-col md:flex-row items-center">
+                    <div class="md:w-1/2 mb-10 md:mb-0">
+                        <h1 class="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-brown-dark mb-6">
+                            세계적인 트랜드<br>
+                            <span class="text-brown">세계적인 한식</span>
+                        </h1>
+                        <p class="text-lg md:text-xl text-brown-light mb-8">
+                           Chef's Career<br/>
+                            2011 5성 호텔 주방  <br/>
+                            2013 공군 병장 만기전역 <br/>
+                            2015 스시 오마카세 <br/>
+                            2018 마구로 오마카세 <br/>
+                            2020 고량주 오마카세 <br/>
+                            2021 재패니즈 파인다이닝 <br/>
+                            2022-24 탄화 한우오마카세 CEO<br/>
+                            2024-25 심천 한식파인다이닝 총괄셰프 <br/>
+                            
+                           
+                        </p>
+                        <div class="flex space-x-4">
+                            <a href="#contact" class="px-6 py-3 bg-brown text-white rounded-md hover:bg-brown-dark transition">
+                                연락하기
+                            </a>
+                            <a href="#gallery" class="px-6 py-3 border border-brown text-brown rounded-md hover:bg-beige-dark hover:border-brown-dark transition">
+                                작품 보기
+                            </a>
+                        </div>
+                    </div>
+                <div class="md:w-1/2 flex justify-center">
+  <div class="relative w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-8 border-white shadow-lg">
+    <!-- 사진을 넣을 부분 -->
+    <img
+      src="C:\Users\hp927\OneDrive\바탕 화면\포트폴리오 폴더\images\chef's photo.jpg"
+      alt="이승헌"
+      class="absolute inset-0 w-full h-full object-cover"
+    />
+    <div class="absolute bottom-0 left-0 right-0 bg-brown bg-opacity-80 text-white text-center py-2">
+      <p class="font-serif">이승헌</p>
+    </div>
+  </div>
+</div>
+        </section>
+
+        <!-- 소개 섹션 -->
+        <section id="about" class="py-20 bg-white">
+            <div class="container mx-auto px-6">
+                <h2 class="section-title text-3xl font-serif font-bold text-brown-dark mb-16">소개</h2>
+                
+                <div class="flex flex-col md:flex-row items-center">
+                    <div class="md:w-1/2 mb-10 md:mb-0">
+                        <div class="relative">
+  <div class="w-3/4 h-96 bg-beige rounded-lg overflow-hidden">
+    <img
+      src="C:\Users\hp927\OneDrive\바탕 화면\포트폴리오 폴더\images\chef's photo 2.jpg"
+      alt="셰프 사진"
+      class="absolute inset-0 w-full h-full object-cover object-[45%_35%]"
+    />
+  </div>
+</div>
+                                    <path fill="#D8CFC0" d="M47.7,-57.2C59.5,-45.1,65.2,-28.5,67.1,-11.9C69,4.7,67.2,21.3,58.8,33.4C50.4,45.5,35.5,53.1,19.3,60.2C3.2,67.3,-14.2,73.9,-29.5,69.8C-44.8,65.7,-58,50.9,-65.2,34.2C-72.4,17.5,-73.6,-1.1,-68.4,-17.1C-63.2,-33.1,-51.5,-46.5,-38,-56.2C-24.5,-65.9,-9.3,-71.9,4.4,-77.1C18.1,-82.3,36.1,-69.3,47.7,-57.2Z" transform="translate(100 100)" />
+                                    <circle cx="100" cy="80" r="30" fill="#6D5D4B" />
+                                    <rect x="70" y="120" width="60" height="40" rx="10" fill="#8A7968" />
+                                    <circle cx="85" cy="80" r="5" fill="white" />
+                                    <circle cx="115" cy="80" r="5" fill="white" />
+                                    <path d="M85,100 Q100,110 115,100" stroke="white" stroke-width="3" fill="none" />
+                                </svg>
+                            </div>
+                            <div class="absolute -bottom-6 -right-6 w-32 h-32 bg-beige-dark rounded-full flex items-center justify-center">
+                                <div class="text-center">
+                                    <p class="text-brown-dark font-bold">경력</p>
+                                    <p class="text-2xl font-serif font-bold text-brown-dark">12+</p>
+                                    <p class="text-brown-dark">년</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="md:w-1/2 md:pl-12">
+                        <h3 class="text-2xl font-serif font-bold text-brown-dark mb-4">안녕하세요, <span class="text-brown">셰프 이승헌</span>입니다</h3>
+                        <p class="text-brown-light mb-6">
+                             12년간의 전문 셰프 경력을 통해 한식·일식·중식·양식을 아우르는 폭넓은 조리 역량을 쌓아 왔습니다. <br/>
+                            특히 일식 분야에서 견고한 기본기를 다진 후, 글로벌 퀴진을 경험하며 창의적인 메뉴 개발과 섬세한 테크닉을 쌓앗습니다..
+                        </p>
+                        <p class="text-brown-light mb-8">
+                             저는 신선한 재료와 계절성을 중요시하며, 각 요리가 스토리텔링의 한 부분이 되도록 노력합니다. 
+                            음식을 통해 문화와 감정을 전달하는 것이 제 철학이며, 이를 통해 손님들에게 잊지 못할 경험을 선사하고자 합니다.
+                        </p>
+                        
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="bg-beige p-4 rounded-lg">
+                                <div class="flex items-center mb-2">
+                                    <i class="fas fa-utensils text-brown mr-2"></i>
+                                    <h4 class="font-bold text-brown">전문 분야</h4>
+                                </div>
+                                <ul class="text-brown-light">
+                                    <li>• 한국 요리</li>
+                                    <li>• 일본 요리</li>
+                                    <li>• 창작 요리</li>
+                                    <li>• 한우 요리</li>
+                                </ul>
+                            </div>
+                            <div class="bg-beige p-4 rounded-lg">
+                                <div class="flex items-center mb-2">
+                                    <i class="fas fa-award text-brown mr-2"></i>
+                                    <h4 class="font-bold text-brown">수상 경력</h4>
+                                </div>
+                                <ul class="text-brown-light">
+                                    <li>• 서울 시장 요리대회 우승</li>
+                                    <li>• 편스토랑 바질라멘 전국 출시</li>
+                                    <li>• 어서와 한국은 처음이지 촬영</li>
+                                    <li>• JTV, MBN 촬영 협조</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 경력 섹션 -->
+        <section id="experience" class="py-20 bg-beige-light">
+            <div class="container mx-auto px-6">
+                <h2 class="section-title text-3xl font-serif font-bold text-brown-dark mb-16">경력</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                    <!-- 직업 경력 -->
+                    <div>
+                        <h3 class="text-2xl font-serif font-bold text-brown mb-8">직업 경력</h3>
+                        
+                        <div class="space-y-10">
+                            <div class="timeline-item pb-10">
+                                <h4 class="font-bold text-brown-dark text-xl">총괄 셰프</h4>
+                                <p class="text-brown mb-2">한식 파인다이닝 'Number9', 중국 심천</p>
+                                <p class="text-sm text-brown-light mb-4">2024년05월 - 2025년05월</p>
+                                <p class="text-brown-light">
+                                • 외국 문화에 대한 높은 적응력과 효과적인 다문화 팀 협업 <br/>
+• 해외 시장 맞춤형 마케팅 전략 채용<br/>
+• 한국 요리 문화에 대한 심층적 이해 교육<br/>
+• 중국 요리 등 외국 요리와의 유사점·차이점 분석을 통한 독창적 한국식 메뉴 개발 및 현지화<br/>
+• 심천 최초 한식 파인다이닝 매장 기획 및 운영 ( 200 $/1인 )<br/>
+ • 독창적인 ‘재패니즈 코리안’ 코스 메뉴 개발<br/>
+• 홀 서비스 전반 교육 기획 및 진행<br/>
+• 홀 서비스 팀 대상 와인 서비스 교육 및 예절 교육 시행<br/>
+• 주방 위생 관리 및 운영 시스템 설계·구축<br/>
+                                </p>
+                            </div>
+                            
+                            <div class="timeline-item pb-10">
+                                <h4 class="font-bold text-brown-dark text-xl">오너셰프</h4>
+                                <p class="text-brown mb-2">한우오마카세 '탄화', 강남 신사</p>
+                                <p class="text-sm text-brown-light mb-4">2022년 - 2024년</p>
+                                <p class="text-brown-light">
+• MBC ‘어서와, 한국은 처음이지?’출연 및 MBN 추가 촬영 참여를 통해 한우 브랜드 홍보  <br/>
+• 한우 정형 기법을 현대 미식 트렌드에 맞춰 재해석 및 최적화<br/>
+• 재무·회계·세무 전반 업무 수행으로 재무 건전성 및 운영 효율성 확보<br/>
+• PR 기획 및 와인 셀렉션 운영을 통한 고객 경험 고도화<br/>
+• 매장 품질 관리(QC) 프로세스 도입 및 실행<br/>
+• 매장 레이아웃 설계, 메뉴 개발 및 식자재 원가 분석을 통한 수익성 극대화<br/>
+• 브랜드 포지셔닝 및 마케팅 전략 수립으로 인지도 및 매출 성장 견인<br/>
+                                </p>
+                            </div>
+                            
+                            <div class="timeline-item">
+                                <h4 class="font-bold text-brown-dark text-xl">부 주방장</h4>
+                                <p class="text-brown mb-2">재패니즈 파인다이닝, 일드청담', 강남 청담</p>
+                                <p class="text-sm text-brown-light mb-4">2021년 - 2022년</p>
+                                <p class="text-brown-light">
+                                    미쉐린 가이드 레스토랑 등재 기여<br/>
+일식과 한식을 결합한 파인다이닝 레스토랑 콘셉트 기획 및 메뉴 개발 협업
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 교육 및 자격증 -->
+                    <div>
+                        <h3 class="text-2xl font-serif font-bold text-brown mb-8">교육 및 자격증</h3>
+                        
+                        <div class="space-y-10">
+                            <div class="timeline-item pb-10">
+                                <h4 class="font-bold text-brown-dark text-xl">신일 자율 사립형 고등학교</h4>
+                                <p class="text-brown mb-2">서울 강북구 미아동</p>
+                                <p class="text-sm text-brown-light mb-4">2010년 - 2012년</p>
+                                <p class="text-brown-light">
+                                </p>
+                            </div>
+                            
+                            <div class="timeline-item pb-10">
+                                <h4 class="font-bold text-brown-dark text-xl">한국 산업 인력 공단</h4>
+                                <p class="text-brown mb-2">한식 조리기능사 </p>
+                                <p class="text-sm text-brown-light mb-4">2012년</p>
+                            </div>
+                            
+                            <div class="timeline-item">
+                                <h4 class="font-bold text-brown-dark text-xl">한국 산업 인력 공단</h4>
+                                <p class="text-brown mb-2">양식 조리기능사</p>
+                                <p class="text-sm text-brown-light mb-4">2016년</p>
+                            </div>
+                        </div>
+                        
+                        <!-- 기술 -->
+                        <div class="mt-16">
+                            <h3 class="text-2xl font-serif font-bold text-brown mb-8">전문 기술</h3>
+                            
+                            <div class="space-y-4">
+                                <div>
+                                    <div class="flex justify-between mb-1">
+                                        <span class="text-brown font-medium">일본 요리</span>
+                                        <span class="text-brown-light">95%</span>
+                                    </div>
+                                    <div class="w-full bg-beige-dark rounded-full h-2">
+                                        <div class="bg-brown h-2 rounded-full" style="width: 95%"></div>
+                                    </div>
+                                </div>
+                                
+                                <div>
+                                    <div class="flex justify-between mb-1">
+                                        <span class="text-brown font-medium">한국 요리</span>
+                                        <span class="text-brown-light">90%</span>
+                                    </div>
+                                    <div class="w-full bg-beige-dark rounded-full h-2">
+                                        <div class="bg-brown h-2 rounded-full" style="width: 90%"></div>
+                                    </div>
+                                </div>
+                                
+                                <div>
+                                    <div class="flex justify-between mb-1">
+                                        <span class="text-brown font-medium">한우 요리</span>
+                                        <span class="text-brown-light">85%</span>
+                                    </div>
+                                    <div class="w-full bg-beige-dark rounded-full h-2">
+                                        <div class="bg-brown h-2 rounded-full" style="width: 85%"></div>
+                                    </div>
+                                </div>
+                                
+                                <div>
+                                    <div class="flex justify-between mb-1">
+                                        <span class="text-brown font-medium">와인 페어링</span>
+                                        <span class="text-brown-light">70%</span>
+                                    </div>
+                                    <div class="w-full bg-beige-dark rounded-full h-2">
+                                        <div class="bg-brown h-2 rounded-full" style="width: 70%"></div>
+                                    </div>
+                                    <br/>
+
+                                    <div>
+                                    <div class="flex justify-between mb-1">
+                                        <span class="text-brown font-medium">중국 요리</span>
+                                        <span class="text-brown-light">50%</span>
+                                </div>
+                                        <div class="w-full bg-beige-dark rounded-full h-2">
+                                        <div class="bg-brown h-2 rounded-full" style="width: 50%"></div>
+                                        <div>
+                                        <br/>
+                                            
+                                    <div>
+                                    <div class="flex justify-between mb-1">
+                                        <span class="text-brown font-medium">피자,파스타</span>
+                                        <span class="text-brown-light">50%</span>
+                                        </div>
+                                        <div class="w-full bg-beige-dark rounded-full h-2">
+                                        <div class="bg-brown h-2 rounded-full" style="width: 50%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+      
+                                
+                                
+               </section>            
+<!-- 1. 갤러리 섹션 전체 -->
+<section id="gallery" class="py-20 bg-white">
+  <div class="mx-auto px-6 max-w-screen-xl">
+    <h2 class="section-title text-3xl font-serif font-bold text-brown-dark mb-16">
+      갤러리
+    </h2>
+
+    <!-- 2. 필터 버튼: data-period 속성 값과 버튼 텍스트만 필요에 따라 바꿔주세요 -->
+    <div class="flex flex-wrap justify-center gap-2 mb-8">
+      <button class="filter-btn active px-4 py-2 bg-beige text-brown rounded-full transition" data-period="all">
+        전체
+      </button>
+      <button class="filter-btn px-4 py-2 bg-beige text-brown rounded-full transition" data-period="2011년-2022년">
+        2011년–2022년
+      </button>
+      <button class="filter-btn px-4 py-2 bg-beige text-brown rounded-full transition" data-period="일드청담">
+        일드청담
+      </button>
+      <button class="filter-btn px-4 py-2 bg-beige text-brown rounded-full transition" data-period="탄화">
+        탄화
+      </button>
+      <button class="filter-btn px-4 py-2 bg-beige text-brown rounded-full transition" data-period="넘버나인">
+        넘버나인
+      </button>
+    </div>
+
+    <!-- 3. 갤러리 그룹들: ★ data-period, src, alt 만 교체하세요 -->
+    <!-- ‘all’ 상태에서 모두 보이려면 해당 그룹에서 hidden 클래스를 제거하세요 -->
+
+    <!-- 2011년–2022년 그룹 -->
+    <div class="gallery-group grid gap-6 grid-cols-[repeat(auto-fit,minmax(200px,1fr))] justify-center hidden" data-period="2011년-2022년">
+      <img src="C:\Users\hp927\OneDrive\바탕 화면\포트폴리오 폴더\images\2011-2022\20171212_200956.jpg" alt="2011–2022 #1" class="w-full h-64 object-cover rounded-lg shadow-md" />
+      <img src="C:\Users\hp927\OneDrive\바탕 화면\포트폴리오 폴더\images\2011-2022\20190224_214039.jpg" alt="2011–2022 #2" class="w-full h-64 object-cover rounded-lg shadow-md" />
+      <img src="C:\Users\hp927\OneDrive\바탕 화면\포트폴리오 폴더\images\2011-2022\20190429_164404.jpg" alt="2011–2022 #3" class="w-full h-64 object-cover rounded-lg shadow-md" />
+      <img src="C:\Users\hp927\OneDrive\바탕 화면\포트폴리오 폴더\images\2011-2022\20190429_183005.jpg" alt="2011–2022 #4" class="w-full h-64 object-cover rounded-lg shadow-md" />
+      <img src="C:\Users\hp927\OneDrive\바탕 화면\포트폴리오 폴더\images\2011-2022\20190706_180908.jpg" alt="2011–2022 #1" class="w-full h-64 object-cover rounded-lg shadow-md" />
+      <img src="C:\Users\hp927\OneDrive\바탕 화면\포트폴리오 폴더\images\2011-2022\20200619_221403.jpg" alt="2011–2022 #1" class="w-full h-64 object-cover rounded-lg shadow-md" />
+   <img src="C:\Users\hp927\OneDrive\바탕 화면\포트폴리오 폴더\images\2011-2022\1610257474974-5.jpg" alt="2011–2022 #1" class="w-full h-64 object-cover rounded-lg shadow-md" />
+      <img src="C:\Users\hp927\OneDrive\바탕 화면\포트폴리오 폴더\images\2011-2022\KakaoTalk_20250702_193448411_13.jpg" alt="2011–2022 #1" class="w-full h-64 object-cover rounded-lg shadow-md" />
+   <img src="C:\Users\hp927\OneDrive\바탕 화면\포트폴리오 폴더\images\2011-2022\KakaoTalk_20250702_193448411_14.jpg" alt="2011–2022 #1" class="w-full h-64 object-cover rounded-lg shadow-md" />
+      <img src="C:\Users\hp927\OneDrive\바탕 화면\포트폴리오 폴더\images\2011-2022\KakaoTalk_20250702_193448411_16.jpg" alt="2011–2022 #1" class="w-full h-64 object-cover rounded-lg shadow-md" />
+   <img src="C:\Users\hp927\OneDrive\바탕 화면\포트폴리오 폴더\images\2011-2022\KakaoTalk_20250702_193448411_17.jpg" alt="2011–2022 #1" class="w-full h-64 object-cover rounded-lg shadow-md" />
+      <img src="C:\Users\hp927\OneDrive\바탕 화면\포트폴리오 폴더\images\2011-2022\KakaoTalk_20250702_193448411_25.jpg" alt="2011–2022 #1" class="w-full h-64 object-cover rounded-lg shadow-md" />
+   <img src="C:\Users\hp927\OneDrive\바탕 화면\포트폴리오 폴더\images\2011-2022\KakaoTalk_20250702_193448411_26.jpg" alt="2011–2022 #1" class="w-full h-64 object-cover rounded-lg shadow-md" />
+      <img src="C:\Users\hp927\OneDrive\바탕 화면\포트폴리오 폴더\images\2011-2022\KakaoTalk_20250702_193448411_27.png" alt="2011–2022 #1" class="w-full h-64 object-cover rounded-lg shadow-md" />
+   <img src="C:\Users\hp927\OneDrive\바탕 화면\포트폴리오 폴더\images\2011-2022\KakaoTalk_20250702_194056678_02.jpg" alt="2011–2022 #1" class="w-full h-64 object-cover rounded-lg shadow-md" />
+      <img src="C:\Users\hp927\OneDrive\바탕 화면\포트폴리오 폴더\images\2011-2022\KakaoTalk_20250702_194056678_05.jpg" alt="2011–2022 #1" class="w-full h-64 object-cover rounded-lg shadow-md" />
+   <img src="C:\Users\hp927\OneDrive\바탕 화면\포트폴리오 폴더\images\2011-2022\KakaoTalk_20250702_194056678_06.jpg" alt="2011–2022 #1" class="w-full h-64 object-cover rounded-lg shadow-md" />
+      <img src="C:\Users\hp927\OneDrive\바탕 화면\포트폴리오 폴더\images\2011-2022\KakaoTalk_20250702_194056678_07.jpg" alt="2011–2022 #1" class="w-full h-64 object-cover rounded-lg shadow-md" />
+   <img src="C:\Users\hp927\OneDrive\바탕 화면\포트폴리오 폴더\images\2011-2022\KakaoTalk_20250702_194056678_08.jpg" alt="2011–2022 #1" class="w-full h-64 object-cover rounded-lg shadow-md" />
+      <img src="C:\Users\hp927\OneDrive\바탕 화면\포트폴리오 폴더\images\2011-2022\KakaoTalk_20250702_194056678_11.jpg" alt="2011–2022 #1" class="w-full h-64 object-cover rounded-lg shadow-md" />
+   <img src="C:\Users\hp927\OneDrive\바탕 화면\포트폴리오 폴더\images\2011-2022\KakaoTalk_20250702_194056678_14.jpg" alt="2011–2022 #1" class="w-full h-64 object-cover rounded-lg shadow-md" />
+      <img src="C:\Users\hp927\OneDrive\바탕 화면\포트폴리오 폴더\images\2011-2022\KakaoTalk_20250702_194308493_04.jpg" alt="2011–2022 #1" class="w-full h-64 object-cover rounded-lg shadow-md" />
+   <img src="C:\Users\hp927\OneDrive\바탕 화면\포트폴리오 폴더\images\2011-2022\Screenshot_20200826-025540_Facebook.jpg" alt="2011–2022 #1" class="w-full h-64 object-cover rounded-lg shadow-md" />
+      <img src="C:\Users\hp927\OneDrive\바탕 화면\포트폴리오 폴더\images\2011-2022\Screenshot_20200826-030954_Hancom Office viewer.jpg" alt="2011–2022 #1" class="w-full h-64 object-cover rounded-lg shadow-md" />
+
+   
+    </div>
+
+    <!-- 일드청담 그룹 -->
+    <div class="gallery-group grid gap-6 grid-cols-[repeat(auto-fit,minmax(200px,1fr))] justify-center hidden" data-period="일드청담">
+      <img src="C:\Users\hp927\OneDrive\바탕 화면\포트폴리오 폴더\images\일드\KakaoTalk_20250702_192847673.jpg" alt="일드청담 #1" class="w-full h-64 object-cover rounded-lg shadow-md" />
+      <img src="C:\Users\hp927\OneDrive\바탕 화면\포트폴리오 폴더\images\일드\KakaoTalk_20250702_192847673_01.jpg" alt="일드청담 #2" class="w-full h-64 object-cover rounded-lg shadow-md" />
+      <img src="C:\Users\hp927\OneDrive\바탕 화면\포트폴리오 폴더\images\일드\KakaoTalk_20250702_192847673_02.jpg" alt="일드청담 #3" class="w-full h-64 object-cover rounded-lg shadow-md" />
+      <img src="C:\Users\hp927\OneDrive\바탕 화면\포트폴리오 폴더\images\일드\KakaoTalk_20250702_192847673_03.jpg" alt="일드청담 #4" class="w-full h-64 object-cover rounded-lg shadow-md" />
+        <img src="C:\Users\hp927\OneDrive\바탕 화면\포트폴리오 폴더\images\일드\KakaoTalk_20250702_192847673_04.jpg" alt="일드청담 #1" class="w-full h-64 object-cover rounded-lg shadow-md" />
+      <img src="C:\Users\hp927\OneDrive\바탕 화면\포트폴리오 폴더\images\일드\KakaoTalk_20250702_192847673_05.jpg" alt="일드청담 #2" class="w-full h-64 object-cover rounded-lg shadow-md" />
+      <img src="C:\Users\hp927\OneDrive\바탕 화면\포트폴리오 폴더\images\일드\KakaoTalk_20250702_192847673_06.jpg" alt="일드청담 #3" class="w-full h-64 object-cover rounded-lg shadow-md" />
+      <img src="C:\Users\hp927\OneDrive\바탕 화면\포트폴리오 폴더\images\일드\KakaoTalk_20250702_192847673_07.jpg" alt="일드청담 #4" class="w-full h-64 object-cover rounded-lg shadow-md" />
+        <img src="C:\Users\hp927\OneDrive\바탕 화면\포트폴리오 폴더\images\일드\KakaoTalk_20250702_192847673_08.jpg" alt="일드청담 #1" class="w-full h-64 object-cover rounded-lg shadow-md" />
+      <img src="C:\Users\hp927\OneDrive\바탕 화면\포트폴리오 폴더\images\일드\KakaoTalk_20250702_193422030_16.jpg" alt="일드청담 #2" class="w-full h-64 object-cover rounded-lg shadow-md" />
+      <img src="C:\Users\hp927\OneDrive\바탕 화면\포트폴리오 폴더\images\일드\KakaoTalk_20250702_193422030_17.jpg" alt="일드청담 #3" class="w-full h-64 object-cover rounded-lg shadow-md" />
+      <img src="C:\Users\hp927\OneDrive\바탕 화면\포트폴리오 폴더\images\일드\KakaoTalk_20250702_193422030_18.jpg" alt="일드청담 #4" class="w-full h-64 object-cover rounded-lg shadow-md" />
+        <img src="C:\Users\hp927\OneDrive\바탕 화면\포트폴리오 폴더\images\일드\KakaoTalk_20250702_193448411_01 (1).jpg" alt="일드청담 #1" class="w-full h-64 object-cover rounded-lg shadow-md" />
+      <img src="C:\Users\hp927\OneDrive\바탕 화면\포트폴리오 폴더\images\일드\KakaoTalk_20250702_193448411_07.jpg" alt="일드청담 #2" class="w-full h-64 object-cover rounded-lg shadow-md" />
+      <img src="C:\Users\hp927\OneDrive\바탕 화면\포트폴리오 폴더\images\일드\KakaoTalk_20250702_194456952 (1).jpg" alt="일드청담 #3" class="w-full h-64 object-cover rounded-lg shadow-md" />
+      <img src="C:\Users\hp927\OneDrive\바탕 화면\포트폴리오 폴더\images\일드\KakaoTalk_20250702_194456952_01.jpg" alt="일드청담 #4" class="w-full h-64 object-cover rounded-lg shadow-md" />
+         <img src="C:\Users\hp927\OneDrive\바탕 화면\포트폴리오 폴더\images\일드\KakaoTalk_20250702_194456952_02.jpg" alt="일드청담 #4" class="w-full h-64 object-cover rounded-lg shadow-md" />
+         <img src="C:\Users\hp927\OneDrive\바탕 화면\포트폴리오 폴더\images\일드\KakaoTalk_20250702_194456952_03.jpg" alt="일드청담 #4" class="w-full h-64 object-cover rounded-lg shadow-md" />
+         <img src="C:\Users\hp927\OneDrive\바탕 화면\포트폴리오 폴더\images\일드\KakaoTalk_20250702_194456952_04.jpg" alt="일드청담 #4" class="w-full h-64 object-cover rounded-lg shadow-md" />
+     
+    </div>
+
+    <!-- 탄화 그룹 -->
+    <div class="gallery-group grid gap-6 grid-cols-[repeat(auto-fit,minmax(200px,1fr))] justify-center hidden" data-period="탄화">
+      <img src="C:\Users\hp927\OneDrive\바탕 화면\포트폴리오 폴더\images\탄화\20220101-DSCF3637.jpg" alt="탄화 #1" class="w-full h-64 object-cover rounded-lg shadow-md" />
+      <img src="C:\Users\hp927\OneDrive\바탕 화면\포트폴리오 폴더\images\탄화\20220101-DSCF3658.jpg" alt="탄화 #2" class="w-full h-64 object-cover rounded-lg shadow-md" />
+      <img src="C:\Users\hp927\OneDrive\바탕 화면\포트폴리오 폴더\images\탄화\20220101-DSCF3693-2.jpg" alt="탄화 #3" class="w-full h-64 object-cover rounded-lg shadow-md" />
+      <img src="C:\Users\hp927\OneDrive\바탕 화면\포트폴리오 폴더\images\탄화\20220101-DSCF3705-3.jpg" alt="탄화 #4" class="w-full h-64 object-cover rounded-lg shadow-md" />
+    <img src="C:\Users\hp927\OneDrive\바탕 화면\포트폴리오 폴더\images\탄화\20220101-DSCF3718.jpg" alt="탄화 #1" class="w-full h-64 object-cover rounded-lg shadow-md" />
+      <img src="C:\Users\hp927\OneDrive\바탕 화면\포트폴리오 폴더\images\탄화\20230126-DSCF5548.jpg" alt="탄화 #2" class="w-full h-64 object-cover rounded-lg shadow-md" />
+      <img src="C:\Users\hp927\OneDrive\바탕 화면\포트폴리오 폴더\images\탄화\KakaoTalk_20230726_143038294_03.jpg" alt="탄화 #3" class="w-full h-64 object-cover rounded-lg shadow-md" />
+      <img src="C:\Users\hp927\OneDrive\바탕 화면\포트폴리오 폴더\images\탄화\KakaoTalk_20230726_143038294_05.jpg" alt="탄화 #4" class="w-full h-64 object-cover rounded-lg shadow-md" />
+    <img src="C:\Users\hp927\OneDrive\바탕 화면\포트폴리오 폴더\images\탄화\KakaoTalk_20230726_143038294_06.jpg" alt="탄화 #1" class="w-full h-64 object-cover rounded-lg shadow-md" />
+      <img src="C:\Users\hp927\OneDrive\바탕 화면\포트폴리오 폴더\images\탄화\KakaoTalk_20230726_143038294_08.jpg" alt="탄화 #2" class="w-full h-64 object-cover rounded-lg shadow-md" />
+      <img src="C:\Users\hp927\OneDrive\바탕 화면\포트폴리오 폴더\images\탄화\KakaoTalk_20230726_143139843.jpg" alt="탄화 #3" class="w-full h-64 object-cover rounded-lg shadow-md" />
+      <img src="C:\Users\hp927\OneDrive\바탕 화면\포트폴리오 폴더\images\탄화\KakaoTalk_20250702_193448411_02.jpg" alt="탄화 #4" class="w-full h-64 object-cover rounded-lg shadow-md" />
+    <img src="C:\Users\hp927\OneDrive\바탕 화면\포트폴리오 폴더\images\탄화\KakaoTalk_20250702_193448411_04.jpg" alt="탄화 #1" class="w-full h-64 object-cover rounded-lg shadow-md" />
+      <img src="C:\Users\hp927\OneDrive\바탕 화면\포트폴리오 폴더\images\탄화\KakaoTalk_20250702_193448411_06.jpg" alt="탄화 #2" class="w-full h-64 object-cover rounded-lg shadow-md" />
+      <img src="C:\Users\hp927\OneDrive\바탕 화면\포트폴리오 폴더\images\탄화\KakaoTalk_20250702_193448411_05.jpg" alt="탄화 #3" class="w-full h-64 object-cover rounded-lg shadow-md" />
+      <img src="C:\Users\hp927\OneDrive\바탕 화면\포트폴리오 폴더\images\탄화\KakaoTalk_20250702_193448411_08.jpg" alt="탄화 #4" class="w-full h-64 object-cover rounded-lg shadow-md" />
+    <img src="C:\Users\hp927\OneDrive\바탕 화면\포트폴리오 폴더\images\탄화\KakaoTalk_20250702_193448411_09.jpg" alt="탄화 #1" class="w-full h-64 object-cover rounded-lg shadow-md" />
+      <img src="C:\Users\hp927\OneDrive\바탕 화면\포트폴리오 폴더\images\탄화\KakaoTalk_20250702_193448411_11.webp" alt="탄화 #2" class="w-full h-64 object-cover rounded-lg shadow-md" />
+      <img src="C:\Users\hp927\OneDrive\바탕 화면\포트폴리오 폴더\images\탄화\간판사진.jpg" alt="탄화 #3" class="w-full h-64 object-cover rounded-lg shadow-md" />
+      <img src="C:\Users\hp927\OneDrive\바탕 화면\포트폴리오 폴더\images\탄화\스크린샷 2023-11-08 161615.png" alt="탄화 #4" class="w-full h-64 object-cover rounded-lg shadow-md" />
+    <img src="C:\Users\hp927\OneDrive\바탕 화면\포트폴리오 폴더\images\탄화\스크린샷 2024-02-20 010847.png" alt="탄화 #1" class="w-full h-64 object-cover rounded-lg shadow-md" />
+      <img src="C:\Users\hp927\OneDrive\바탕 화면\포트폴리오 폴더\images\탄화\스크린샷 2024-02-20 010934.png" alt="탄화 #2" class="w-full h-64 object-cover rounded-lg shadow-md" />
+      <img src="C:\Users\hp927\OneDrive\바탕 화면\포트폴리오 폴더\images\탄화\스크린샷 2024-02-20 010953.png" alt="탄화 #3" class="w-full h-64 object-cover rounded-lg shadow-md" />
+      <img src="C:\Users\hp927\OneDrive\바탕 화면\포트폴리오 폴더\images\탄화\스크린샷 2024-02-20 011211.png" alt="탄화 #4" class="w-full h-64 object-cover rounded-lg shadow-md" />
+        <img src="C:\Users\hp927\OneDrive\바탕 화면\포트폴리오 폴더\images\탄화\스크린샷 2024-02-25 210412.png" alt="탄화 #2" class="w-full h-64 object-cover rounded-lg shadow-md" />
+      <img src="C:\Users\hp927\OneDrive\바탕 화면\포트폴리오 폴더\images\탄화\스크린샷 2024-02-20 011258.png" alt="탄화 #3" class="w-full h-64 object-cover rounded-lg shadow-md" />
+      <img src="C:\Users\hp927\OneDrive\바탕 화면\포트폴리오 폴더\images\넘버나인\KakaoTalk_20250702_193422030_12.webp" alt="탄화 #4" class="w-full h-64 object-cover rounded-lg shadow-md" />
+    <img src="C:\Users\hp927\OneDrive\바탕 화면\포트폴리오 폴더\images\탄화\스크린샷 2024-02-20 011316.png" alt="탄화 #1" class="w-full h-64 object-cover rounded-lg shadow-md" />
+     <img src="C:\Users\hp927\OneDrive\바탕 화면\포트폴리오 폴더\images\넘버나인\KakaoTalk_20250702_193422030_12.webp" alt="탄화 #1" class="w-full h-64 object-cover rounded-lg shadow-md" />
+    
+    </div>
+
+    <!-- 넘버나인 그룹 -->
+    <div class="gallery-group grid gap-6 grid-cols-[repeat(auto-fit,minmax(200px,1fr))] justify-center hidden" data-period="넘버나인">
+      <img src="C:\Users\hp927\OneDrive\바탕 화면\포트폴리오 폴더\images\넘버나인\KakaoTalk_20250702_193113412 (1).jpg" alt="넘버나인 #1" class="w-full h-64 object-cover rounded-lg shadow-md" />
+      <img src="C:\Users\hp927\OneDrive\바탕 화면\포트폴리오 폴더\images\넘버나인\KakaoTalk_20250702_193113412_01.jpg" alt="넘버나인 #2" class="w-full h-64 object-cover rounded-lg shadow-md" />
+      <img src="C:\Users\hp927\OneDrive\바탕 화면\포트폴리오 폴더\images\넘버나인\KakaoTalk_20250702_193113412_02.jpg"alt="넘버나인 #3" class="w-full h-64 object-cover rounded-lg shadow-md" />
+      <img src="C:\Users\hp927\OneDrive\바탕 화면\포트폴리오 폴더\images\넘버나인\KakaoTalk_20250702_193422030_06.jpg"alt="넘버나인 #4" class="w-full h-64 object-cover rounded-lg shadow-md" />
+<img src="C:\Users\hp927\OneDrive\바탕 화면\포트폴리오 폴더\images\넘버나인\KakaoTalk_20250702_193113412_03.jpg"alt="넘버나인 #3" class="w-full h-64 object-cover rounded-lg shadow-md" />
+      <img src="C:\Users\hp927\OneDrive\바탕 화면\포트폴리오 폴더\images\넘버나인\KakaoTalk_20250702_193113412_05.jpg"alt="넘버나인 #4" class="w-full h-64 object-cover rounded-lg shadow-md" />
+<img src="C:\Users\hp927\OneDrive\바탕 화면\포트폴리오 폴더\images\넘버나인\KakaoTalk_20250702_193113412_06.jpg"alt="넘버나인 #3" class="w-full h-64 object-cover rounded-lg shadow-md" />
+      <img src="C:\Users\hp927\OneDrive\바탕 화면\포트폴리오 폴더\images\넘버나인\KakaoTalk_20250702_193113412_08.jpg"alt="넘버나인 #4" class="w-full h-64 object-cover rounded-lg shadow-md" />
+<img src="C:\Users\hp927\OneDrive\바탕 화면\포트폴리오 폴더\images\넘버나인\KakaoTalk_20250702_193113412_09.jpg"alt="넘버나인 #3" class="w-full h-64 object-cover rounded-lg shadow-md" />
+      <img src="C:\Users\hp927\OneDrive\바탕 화면\포트폴리오 폴더\images\넘버나인\KakaoTalk_20250702_193113412_10.jpg"alt="넘버나인 #4" class="w-full h-64 object-cover rounded-lg shadow-md" />
+<img src="C:\Users\hp927\OneDrive\바탕 화면\포트폴리오 폴더\images\넘버나인\KakaoTalk_20250702_193113412_12.jpg"alt="넘버나인 #3" class="w-full h-64 object-cover rounded-lg shadow-md" />
+      <img src="C:\Users\hp927\OneDrive\바탕 화면\포트폴리오 폴더\images\넘버나인\KakaoTalk_20250702_193135750_05.jpg"alt="넘버나인 #4" class="w-full h-64 object-cover rounded-lg shadow-md" />
+<img src="C:\Users\hp927\OneDrive\바탕 화면\포트폴리오 폴더\images\넘버나인\KakaoTalk_20250702_193113412_13.jpg"alt="넘버나인 #3" class="w-full h-64 object-cover rounded-lg shadow-md" />
+      <img src="C:\Users\hp927\OneDrive\바탕 화면\포트폴리오 폴더\images\넘버나인\KakaoTalk_20250702_193422030 (1).jpg"alt="넘버나인 #4" class="w-full h-64 object-cover rounded-lg shadow-md" />
+<img src="C:\Users\hp927\OneDrive\바탕 화면\포트폴리오 폴더\images\넘버나인\KakaoTalk_20250702_193422030_01.jpg"alt="넘버나인 #3" class="w-full h-64 object-cover rounded-lg shadow-md" />
+      <img src="C:\Users\hp927\OneDrive\바탕 화면\포트폴리오 폴더\images\넘버나인\KakaoTalk_20250702_193422030_02.jpg"alt="넘버나인 #4" class="w-full h-64 object-cover rounded-lg shadow-md" />
+<img src="C:\Users\hp927\OneDrive\바탕 화면\포트폴리오 폴더\images\넘버나인\KakaoTalk_20250702_193422030_03.jpg"alt="넘버나인 #3" class="w-full h-64 object-cover rounded-lg shadow-md" />
+      <img src="C:\Users\hp927\OneDrive\바탕 화면\포트폴리오 폴더\images\넘버나인\KakaoTalk_20250702_193422030_04.jpg"alt="넘버나인 #4" class="w-full h-64 object-cover rounded-lg shadow-md" />
+<img src="C:\Users\hp927\OneDrive\바탕 화면\포트폴리오 폴더\images\넘버나인\KakaoTalk_20250702_193422030_08.jpg"alt="넘버나인 #3" class="w-full h-64 object-cover rounded-lg shadow-md" />
+      <img src="C:\Users\hp927\OneDrive\바탕 화면\포트폴리오 폴더\images\넘버나인\KakaoTalk_20250702_193422030_10.jpg"alt="넘버나인 #4" class="w-full h-64 object-cover rounded-lg shadow-md" />
+<img src="C:\Users\hp927\OneDrive\바탕 화면\포트폴리오 폴더\images\넘버나인\KakaoTalk_20250702_193422030_11.jpg"alt="넘버나인 #3" class="w-full h-64 object-cover rounded-lg shadow-md" />
+      <img src=alt="넘버나인 #4" class="w-full h-64 object-cover rounded-lg shadow-md" />
+
+    </div>
+  </div>
+</section>
+
+<!-- 4. 필터 기능 스크립트: 페이지 맨 아래에 그대로 붙여넣으세요 -->
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const buttons = document.querySelectorAll('.filter-btn');
+    const groups  = document.querySelectorAll('.gallery-group');
+
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        buttons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const period = btn.dataset.period;
+        groups.forEach(g => {
+          g.classList.toggle('hidden', period !== 'all' && g.dataset.period !== period);
+        });
+      });
+    });
+  });
+</script>
+
+
+        <!-- 연락처 섹션 -->
+                                    
+        <section id="contact" class="py-20 bg-beige">
+            <div class="container mx-auto px-6">
+                <h2 class="section-title text-3xl font-serif font-bold text-brown-dark mb-16">연락처</h2>
+                
+                <div class="flex flex-col md:flex-row gap-12">
+                    <div class="md:w-1/2">
+                        <h3 class="text-2xl font-serif font-bold text-brown mb-6">메시지 보내기/Disabled</h3>
+                        
+                        <form id="contact-form" class="space-y-6">
+                            <div>
+                                <label for="name" class="block text-brown mb-2">이름</label>
+                                <input type="text" id="name" class="w-full px-4 py-3 rounded-md border border-beige-dark focus:outline-none focus:ring-2 focus:ring-brown" placeholder="이름을 입력하세요">
+                            </div>
+                            
+                            <div>
+                                <label for="email" class="block text-brown mb-2">이메일</label>
+                                <input type="email" id="email" class="w-full px-4 py-3 rounded-md border border-beige-dark focus:outline-none focus:ring-2 focus:ring-brown" placeholder="이메일을 입력하세요">
+                            </div>
+                            
+                            <div>
+                                <label for="subject" class="block text-brown mb-2">제목</label>
+                                <input type="text" id="subject" class="w-full px-4 py-3 rounded-md border border-beige-dark focus:outline-none focus:ring-2 focus:ring-brown" placeholder="제목을 입력하세요">
+                            </div>
+                            
+                            <div>
+                                <label for="message" class="block text-brown mb-2">메시지</label>
+                                <textarea id="message" rows="5" class="w-full px-4 py-3 rounded-md border border-beige-dark focus:outline-none focus:ring-2 focus:ring-brown" placeholder="메시지를 입력하세요"></textarea>
+                            </div>
+                            
+                            <button type="submit" class="px-6 py-3 bg-brown text-white rounded-md hover:bg-brown-dark transition w-full">
+                                보내기/사용불가
+                            </button>
+                        </form>
+                    </div>
+                    
+                    <div class="md:w-1/2">
+                        <h3 class="text-2xl font-serif font-bold text-brown mb-6">연락처 정보</h3>
+                        
+                        <div class="space-y-6">
+                            <div class="flex items-start">
+                                <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center mr-4 shadow-md">
+                                    <i class="fas fa-envelope text-brown text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-brown-dark">이메일</h4>
+                                    <p class="text-brown-light">dltmdgjs1677@gmail.com</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center mr-4 shadow-md">
+                                    <i class="fas fa-phone text-brown text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-brown-dark">전화번호</h4>
+                                    <p class="text-brown-light">+86 185 2035 3914</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center mr-4 shadow-md">
+                                    <i class="fas fa-map-marker-alt text-brown text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-brown-dark">위치</h4>
+                                    <p class="text-brown-light"> 중국 광저우시 판위구 시에춘역 </p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-10">
+                            <h3 class="text-2xl font-serif font-bold text-brown mb-6">소셜 미디어</h3>
+                            
+                            <div class="flex space-x-4">
+                                <a href="#" class="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-md hover:bg-beige-dark transition">
+                                    <i class="fab fa-instagram text-brown text-xl"></i>
+                                </a>
+                                <a href="#" class="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-md hover:bg-beige-dark transition">
+                                    <i class="fab fa-facebook-f text-brown text-xl"></i>
+                                </a>
+                                <a href="#" class="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-md hover:bg-beige-dark transition">
+                                    <i class="fab fa-youtube text-brown text-xl"></i>
+                                </a>
+                                <a href="#" class="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-md hover:bg-beige-dark transition">
+                                    <i class="fab fa-linkedin-in text-brown text-xl"></i>
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-10 p-6 bg-white rounded-lg shadow-md">
+                            <h4 class="font-bold text-brown-dark mb-4">근무 가능 시간</h4>
+                            <ul class="space-y-2 text-brown-light">
+                                <li class="flex justify-between">
+                                    <span>월요일 - 금요일:</span>
+                                    <span>00:00 - 00:00</span>
+                                </li>
+                                <li class="flex justify-between">
+                                    <span>토요일:</span>
+                                    <span>00:00 - 00:00</span>
+                                </li>
+                                <li class="flex justify-between">
+                                    <span>일요일:</span>
+                                    <span>00:00 - 00:00</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 푸터 -->
+    <footer class="bg-brown-dark text-white py-10">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-6 md:mb-0">
+                    <h2 class="text-2xl font-serif font-bold mb-2">Chef Portfolio</h2>
+                    <p class="text-beige-light">요리로 전하는 특별한 이야기</p>
+                </div>
+                
+                <div class="flex flex-col md:flex-row md:space-x-10 space-y-6 md:space-y-0">
+                    <div>
+                        <h3 class="text-lg font-bold mb-3">바로가기</h3>
+                        <ul class="space-y-2">
+                            <li><a href="#home" class="text-beige-light hover:text-white transition">홈</a></li>
+                            <li><a href="#about" class="text-beige-light hover:text-white transition">소개</a></li>
+                            <li><a href="#experience" class="text-beige-light hover:text-white transition">경력</a></li>
+                            <li><a href="#gallery" class="text-beige-light hover:text-white transition">갤러리</a></li>
+                            <li><a href="#contact" class="text-beige-light hover:text-white transition">연락처</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h3 class="text-lg font-bold mb-3">연락처</h3>
+                        <ul class="space-y-2">
+                            <li class="flex items-center">
+                                <i class="fas fa-envelope mr-2 text-beige-light"></i>
+                                <a href="mailto:dltmdgjs1677@gmail.com" class="text-beige-light hover:text-white transition">dltmdgjs1677@gmail.com</a>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-phone mr-2 text-beige-light"></i>
+                                <a href="tel:+86 185 2035 3914" class="text-beige-light hover:text-white transition">+86 185 2035 3914</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-brown mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-beige-light text-sm mb-4 md:mb-0">&copy; 2025 Chef Portfolio. All rights reserved.</p>
+                
+                <div class="flex space-x-4">
+                    <a href="#" class="text-beige-light hover:text-white transition">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="#" class="text-beige-light hover:text-white transition">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="#" class="text-beige-light hover:text-white transition">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                    <a href="#" class="text-beige-light hover:text-white transition">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 이미지 모달 -->
+    <div id="image-modal" class="fixed inset-0 bg-black bg-opacity-80 z-50 hidden flex items-center justify-center p-4">
+        <div class="relative max-w-4xl w-full bg-white rounded-lg overflow-hidden">
+            <button id="close-modal" class="absolute top-4 right-4 text-gray-500 hover:text-gray-700 text-2xl z-10">
+                <i class="fas fa-times"></i>
+            </button>
+            
+            <div class="p-6">
+                <div id="modal-image" class="w-full h-80 bg-beige flex items-center justify-center mb-4">
+                    <svg id="modal-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" class="w-full h-full"></svg>
+                </div>
+                
+                <h3 id="modal-title" class="font-serif font-bold text-brown-dark text-2xl mb-2"></h3>
+                <p id="modal-description" class="text-brown-light mb-6"></p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="bg-beige p-4 rounded-lg">
+                        <h4 class="font-bold text-brown mb-2">재료</h4>
+                        <ul id="modal-ingredients" class="text-brown-light list-disc pl-5 space-y-1"></ul>
+                    </div>
+                    
+                    <div class="bg-beige p-4 rounded-lg">
+                        <h4 class="font-bold text-brown mb-2">조리 방법</h4>
+                        <p id="modal-method" class="text-brown-light"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 스크립트 -->
+    <script>
+        // 모바일 메뉴 토글
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        menuToggle.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        // 스크롤 시 네비게이션 활성화
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-link');
+        
+        window.addEventListener('scroll', () => {
+            let current = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                
+                if (pageYOffset >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').substring(1) === current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+        
+        // 갤러리 필터링
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                // 여기에 실제 필터링 로직 추가
+                // 예시 목적으로만 클래스 토글
+            });
+        });
+        
+        // 이미지 모달
+        const galleryItems = document.querySelectorAll('.gallery-item');
+        const imageModal = document.getElementById('image-modal');
+        const closeModal = document.getElementById('close-modal');
+        const modalTitle = document.getElementById('modal-title');
+        const modalDescription = document.getElementById('modal-description');
+        const modalIngredients = document.getElementById('modal-ingredients');
+        const modalMethod = document.getElementById('modal-method');
+        const modalSvg = document.getElementById('modal-svg');
+        
+        galleryItems.forEach(item => {
+            const expandBtn = item.querySelector('button');
+            expandBtn.addEventListener('click', () => {
+                const title = item.querySelector('h3').textContent;
+                const description = item.querySelector('p').textContent;
+                const svgContent = item.querySelector('svg').innerHTML;
+                
+                modalTitle.textContent = title;
+                modalDescription.textContent = description;
+                modalSvg.innerHTML = svgContent;
+                
+                // 예시 데이터
+                const ingredients = [
+                    '주 재료 1 - 200g',
+                    '주 재료 2 - 150g',
+                    '양념 1 - 2큰술',
+                    '양념 2 - 1작은술',
+                    '가니쉬 - 약간'
+                ];
+                
+                modalIngredients.innerHTML = '';
+                ingredients.forEach(ingredient => {
+                    const li = document.createElement('li');
+                    li.textContent = ingredient;
+                    modalIngredients.appendChild(li);
+                });
+                
+                modalMethod.textContent = '주 재료를 손질한 후 양념과 함께 조리합니다. 중불에서 10분간 익힌 후 가니쉬를 올려 완성합니다.';
+                
+                imageModal.classList.remove('hidden');
+            });
+        });
+        
+        closeModal.addEventListener('click', () => {
+            imageModal.classList.add('hidden');
+        });
+        
+        // 모달 외부 클릭 시 닫기
+        imageModal.addEventListener('click', (e) => {
+            if (e.target === imageModal) {
+                imageModal.classList.add('hidden');
+            }
+        });
+        
+        // 폼 제출 처리
+        const contactForm = document.getElementById('contact-form');
+        
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // 폼 데이터 가져오기
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const subject = document.getElementById('subject').value;
+            const message = document.getElementById('message').value;
+            
+            // 간단한 유효성 검사
+            if (!name || !email || !subject || !message) {
+                alert('모든 필드를 입력해주세요.');
+                return;
+            }
+            
+            // 데모 목적으로 알림 표시
+            alert('메시지가 성공적으로 전송되었습니다! (데모)');
+            contactForm.reset();
+        });
+        
+        // 더 보기 버튼
+        const loadMoreBtn = document.getElementById('load-more');
+        
+        loadMoreBtn.addEventListener('click', () => {
+            // 데모 목적으로 알림 표시
+            alert('더 많은 갤러리 항목을 로드합니다. (데모)');
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'958c106f8535dd42',t:'MTc1MTQzNzUwOS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
